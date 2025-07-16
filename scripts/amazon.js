@@ -1,3 +1,6 @@
+// import variables
+import {cart} from '../data/cart.js'
+import {products} from '../data/products.js'
 // generate HTML for products
 let productsHTML = ``
 products.forEach(product => {
