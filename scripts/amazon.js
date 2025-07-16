@@ -1,6 +1,7 @@
-// import variables
+// import variables and functions
 import {cart, addToCart} from '../data/cart.js'
 import {products} from '../data/products.js'
+
 // generate HTML for products
 let productsHTML = ``
 products.forEach(product => {
@@ -56,7 +57,7 @@ products.forEach(product => {
     `
 })
 
-// load productsListHTML in HTML
+// load productsListHTML in amazon page
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 // update cart quantity
