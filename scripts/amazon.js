@@ -72,7 +72,7 @@ function updateCartQuantity () {
 
 // add to Cart event listener
 document.querySelectorAll('.add-to-cart-button').forEach(button => {
-    button.addEventListener('click', event => {
+    button.addEventListener('click', () => {
         const productId = button.dataset.productId
         addToCart(productId)
         updateCartQuantity()

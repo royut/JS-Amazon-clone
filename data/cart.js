@@ -27,3 +27,12 @@ export function addToCart (productId) {
         })
     }
 }
+
+// remove product from the cart
+export function removeFromCart (productId) {
+    cart.forEach((cartItem, index) => {
+        if (cartItem.productId === productId) {
+            cart.splice(index, 1)
+        }
+    })
+}
