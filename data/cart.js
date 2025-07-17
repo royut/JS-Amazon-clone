@@ -35,3 +35,13 @@ export function removeFromCart (productId) {
     })
     saveToLocalStorage()
 }
+
+// update delivery option
+export function updateDeliveryOption (productId, newDeliveryOptionId) {
+    cart.forEach(cartItem => {
+        if (cartItem.productId === productId) {
+            cartItem.deliveryOptionId = newDeliveryOptionId
+        }
+    })
+    saveToLocalStorage()
+}
