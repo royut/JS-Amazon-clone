@@ -603,7 +603,7 @@ jasmineRequire.HtmlReporter = function(j$) {
             createDom(
               'label',
               { className: 'jasmine-label', for: 'jasmine-random-order' },
-              'run tests in random order'
+              'run tests-simple in random order'
             )
           ),
           createDom(
@@ -617,7 +617,7 @@ jasmineRequire.HtmlReporter = function(j$) {
             createDom(
               'label',
               { className: 'jasmine-label', for: 'jasmine-hide-disabled' },
-              'hide disabled tests'
+              'hide disabled tests-simple'
             )
           )
         )

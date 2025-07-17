@@ -31,7 +31,7 @@ describe('test suite: renderOrderSummary', () => {
     })
     // test: how the page looks
     it('displays the cart', () => {
-        // tests
+        // tests-simple
         expect(
             document.querySelectorAll('.js-cart-item-container').length
         ).toEqual(2)
@@ -48,7 +48,7 @@ describe('test suite: renderOrderSummary', () => {
     it('removes a product from the cart', () => {
         // delete one item
         document.querySelector(`.js-delete-link-${productId1}`).click()
-        // tests
+        // tests-simple
         expect(
             document.querySelectorAll('.js-cart-item-container').length
         ).toEqual(1)

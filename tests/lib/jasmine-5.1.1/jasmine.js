@@ -207,7 +207,7 @@ getJasmineRequireObj().base = function(j$, jasmineGlobal) {
    * {@link afterAll}. The value must be no greater than the largest number of
    * milliseconds supported by setTimeout, which is usually 2147483647.
    *
-   * While debugging tests, you may want to set this to a large number (or pass
+   * While debugging tests-simple, you may want to set this to a large number (or pass
    * a large number to one of the functions mentioned above) so that Jasmine
    * does not move on to after functions or the next spec while you're debugging.
    * @name jasmine.DEFAULT_TIMEOUT_INTERVAL
@@ -2060,7 +2060,7 @@ getJasmineRequireObj().Env = function(j$) {
 
   function callerCallerFilename() {
     const frames = new j$.StackTrace(new Error()).frames;
-    // frames[3] should always exist except in Jasmine's own tests, which bypass
+    // frames[3] should always exist except in Jasmine's own tests-simple, which bypass
     // the global it/describe layer, but don't crash if it doesn't.
     return frames[3] && frames[3].file;
   }
@@ -2924,11 +2924,11 @@ getJasmineRequireObj().clearStack = function(j$) {
       return nodeQueueMicrotaskImpl(global);
     } else if (
       SAFARI ||
-      j$.util.isUndefined(global.MessageChannel) /* tests */
+      j$.util.isUndefined(global.MessageChannel) /* tests-simple */
     ) {
       // queueMicrotask is dramatically faster than MessageChannel in Safari,
       // at least through version 16.
-      // Some of our own integration tests provide a mock queueMicrotask in all
+      // Some of our own integration tests-simple provide a mock queueMicrotask in all
       // environments because it's simpler to mock than MessageChannel.
       return browserQueueMicrotaskImpl(global);
     } else {
