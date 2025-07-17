@@ -19,5 +19,11 @@ if (formatCurrency(2000.5) === '20.01'){
 }
 else {
     console.log('failed')
-    console.log(Math.round(2000.5) / 100)
+}
+
+if (formatCurrency(2000.4) === '20.00'){
+    console.log('passed')
+}
+else {
+    console.log('failed')
 }
