@@ -15,7 +15,7 @@ export function renderOrderSummary () {
         let deliveryOption = getDeliveryOption(cartItem.deliveryOptionId)
 
         cartSummaryHTML += `
-            <div class="cart-item-container js-cart-item-container-${cartItem.productId}">
+            <div class="cart-item-container js-cart-item-container js-cart-item-container-${cartItem.productId}">
                 <div class="delivery-date">
                     Delivery date: ${dayjs().add(deliveryOption.deliveryDays, 'days').format('dddd, MMMM D')}
                 </div>
@@ -28,14 +28,15 @@ export function renderOrderSummary () {
                         <div class="product-price">
                             $${formatCurrency(product.priceCents)}
                         </div>
-                        <div class="product-quantity">
+                        <div class="product-quantity js-product-quantity-${cartItem.productId}">
                             <span>
                                 Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                             </span>
                             <span class="update-quantity-link link-primary">
                                 Update
                             </span>
-                            <span class="delete-quantity-link link-primary" data-product-id="${cartItem.productId}">
+                            <span class="delete-quantity-link link-primary js-delete-link-${cartItem.productId}"
+                             data-product-id="${cartItem.productId}">
                                 Delete
                             </span>
                         </div>
