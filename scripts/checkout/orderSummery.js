@@ -1,7 +1,7 @@
 // import variables and functions
 import {cart, removeFromCart, updateDeliveryOption} from '../../data/cart.js'
-import {products} from '../../data/products.js'
-import {deliveryOptions} from '../../data/deliveryOptions.js'
+import {getProduct} from '../../data/products.js'
+import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'
 import {formatCurrency} from '../utils/money.js'
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
 
@@ -10,9 +10,8 @@ export function renderOrderSummary () {
     // generate HTML for cart
     let cartSummaryHTML = ``
     cart.forEach(cartItem => {
-        // find Cart Item in Products
-        let product = findProductById(cartItem.productId)
-        let deliveryOption = findDeliveryOption(cartItem.deliveryOptionId)
+        let product = getProduct(cartItem.productId)
+        let deliveryOption = getDeliveryOption(cartItem.deliveryOptionId)
 
         cartSummaryHTML += `
             <div class="cart-item-container js-cart-item-container-${cartItem.productId}">
@@ -78,27 +77,6 @@ export function renderOrderSummary () {
 
     // load cartHTML in checkout page
     document.querySelector('.order-summary').innerHTML = cartSummaryHTML;
-
-
-    function findProductById (productId) {
-        let matchingProduct
-        products.forEach(product => {
-            if (product.id === productId) {
-                matchingProduct = product
-            }
-        })
-        return matchingProduct
-    }
-
-    function findDeliveryOption (deliveryOptionId) {
-        let matchingDeliveryOption
-        deliveryOptions.forEach(deliveryOption => {
-            if (deliveryOption.id === deliveryOptionId) {
-                matchingDeliveryOption = deliveryOption
-            }
-        })
-        return matchingDeliveryOption
-    }
 
     // delete item event listener
     document.querySelectorAll('.delete-quantity-link').forEach(link => {
