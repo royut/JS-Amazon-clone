@@ -1,18 +1,18 @@
 class Cart {
     cartItems
-    locaStorageKey
+    #locaStorageKey
 
     constructor(locaStorageKey) {
-        this.locaStorageKey = locaStorageKey
-        this.loadFromStorage()
+        this.#locaStorageKey = locaStorageKey
+        this.#loadFromStorage()
     }
     // load from local storage
-    loadFromStorage() {
-        this.cartItems = JSON.parse(localStorage.getItem(this.locaStorageKey)) || []
+    #loadFromStorage() {
+        this.cartItems = JSON.parse(localStorage.getItem(this.#locaStorageKey)) || []
     }
     // save to local storage
     saveToLocalStorage() {
-        localStorage.setItem(this.locaStorageKey, JSON.stringify(this.cartItems))
+        localStorage.setItem(this.#locaStorageKey, JSON.stringify(this.cartItems))
     }
     // add product to the cart
     addToCart(productId) {
