@@ -719,6 +719,8 @@ export function loadProductsFetch () {
             return new Product(productDetails)
         })
         console.log('load products')
+    }).catch(error => {
+        console.log('error in promise')
     })
     return promise
 }
@@ -738,6 +740,9 @@ export function loadProducts (fun) {
         })
         console.log('load products')
         fun();
+    })
+    xhr.addEventListener('error', (error) => {
+        console.log('error')
     })
 
     xhr.open('GET', 'https://supersimplebackend.dev/products')
