@@ -1,5 +1,5 @@
 // import variables and functions
-import {cart, removeFromCart, updateDeliveryOption} from '../../data/cart.js'
+import {cart, removeFromCart, updateDeliveryOption, cartQuantity} from '../../data/cart.js'
 import {getProduct} from '../../data/products.js'
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'
 import {formatCurrency} from '../utils/money.js'
@@ -79,6 +79,8 @@ export function renderOrderSummary () {
 
     // load cartHTML in checkout page
     document.querySelector('.order-summary').innerHTML = cartSummaryHTML;
+    // update cart quantity in the header
+    document.querySelector('.js-return-to-home-link').innerText = `${cartQuantity()} items`
 
     // delete item event listener
     document.querySelectorAll('.delete-quantity-link').forEach(link => {

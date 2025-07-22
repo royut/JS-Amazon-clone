@@ -13,6 +13,15 @@ function saveToLocalStorage () {
     localStorage.setItem('cart', JSON.stringify(cart))
 }
 
+// return cart quantity
+export function cartQuantity() {
+    let cartQuantity = 0
+    cart.forEach(cartItem => {
+        cartQuantity += cartItem.quantity
+    })
+    return cartQuantity
+}
+
 // add product to the cart
 export function addToCart (productId, quantity = 1) {
     let mathingItem
