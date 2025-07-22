@@ -1,5 +1,5 @@
 // import variables and functions
-import {cart, addToCart} from '../data/cart.js'
+import {cart, addToCart, calculateCartQuantity} from '../data/cart.js'
 import {products, loadProducts} from '../data/products.js'
 import {formatCurrency} from './utils/money.js'
 
@@ -72,12 +72,9 @@ function renderProductsGrid () {
 
     // update cart quantity
     function updateCartQuantity() {
-        let cartQuantity = 0
-        cart.forEach(cartItem => {
-            cartQuantity += cartItem.quantity
-        })
-        document.querySelector('.cart-quantity').innerText = cartQuantity
+        document.querySelector('.js-cart-quantity').innerText = calculateCartQuantity()
     }
+    updateCartQuantity()
 
     // add to Cart event listener
     document.querySelectorAll('.add-to-cart-button').forEach(button => {

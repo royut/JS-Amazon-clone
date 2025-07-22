@@ -14,7 +14,7 @@ function saveToLocalStorage () {
 }
 
 // return cart quantity
-export function cartQuantity() {
+export function calculateCartQuantity() {
     let cartQuantity = 0
     cart.forEach(cartItem => {
         cartQuantity += cartItem.quantity
