@@ -13,6 +13,7 @@ async function loadPage() {
             // throw 'error2'
             loadCart(() => {
                 // reject('error')
+                console.log("loading useless shit")
                 resolve('value3')
             })
         })

@@ -32,10 +32,11 @@ export function renderOrderSummary () {
                             <span>
                                 Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                             </span>
-                            <span class="update-quantity-link link-primary">
+                            <span class="update-quantity-link link-primary js-update-link js-update-link-${cartItem.productId}"
+                             data-product-id="${cartItem.productId}">
                                 Update
                             </span>
-                            <span class="delete-quantity-link link-primary js-delete-link-${cartItem.productId}"
+                            <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${cartItem.productId}"
                              data-product-id="${cartItem.productId}">
                                 Delete
                             </span>
@@ -83,12 +84,20 @@ export function renderOrderSummary () {
     document.querySelector('.js-return-to-home-link').innerText = `${calculateCartQuantity()} items`
 
     // delete item event listener
-    document.querySelectorAll('.delete-quantity-link').forEach(link => {
+    document.querySelectorAll('.js-delete-link').forEach(link => {
         link.addEventListener('click', () => {
-            const productId = link.dataset.productId
+            const {productId} = link.dataset
             removeFromCart(productId)
             renderOrderSummary()
             renderPaymentSummary()
+        })
+    })
+
+    // update item event listener
+    document.querySelectorAll('.js-update-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const {productId} = link.dataset
+            console.log(productId)
         })
     })
 

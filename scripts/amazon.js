@@ -84,11 +84,11 @@ function renderProductsGrid () {
             addToCart(productId, quantity)
             updateCartQuantity()
             showAddedToCartMessage(productId)
+            console.log(cart, quantity)
         })
     })
 
     function showAddedToCartMessage(productId) {
-        console.log(timeoutIds)
         const addedToCartButton = document.querySelector(`.js-added-to-cart-button-${productId}`)
         addedToCartButton.classList.add('visible')
         if (timeoutIds[productId]) {

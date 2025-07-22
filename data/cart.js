@@ -24,6 +24,7 @@ export function calculateCartQuantity() {
 
 // add product to the cart
 export function addToCart (productId, quantity = 1) {
+    loadFromStorage()
     let mathingItem
     cart.forEach(cartItem => {
         if (cartItem.productId === productId) {
@@ -45,6 +46,7 @@ export function addToCart (productId, quantity = 1) {
 
 // remove product from the cart
 export function removeFromCart (productId) {
+    loadFromStorage()
     cart.forEach((cartItem, index) => {
         if (cartItem.productId === productId) {
             cart.splice(index, 1)
@@ -55,6 +57,7 @@ export function removeFromCart (productId) {
 
 // update delivery option
 export function updateDeliveryOption (productId, newDeliveryOptionId) {
+    loadFromStorage()
     cart.forEach(cartItem => {
         if (cartItem.productId === productId) {
             cartItem.deliveryOptionId = newDeliveryOptionId
