@@ -14,7 +14,7 @@ function saveToLocalStorage () {
 }
 
 // add product to the cart
-export function addToCart (productId) {
+export function addToCart (productId, amount = 1) {
     let mathingItem
     cart.forEach(cartItem => {
         if (cartItem.productId === productId) {
@@ -22,12 +22,12 @@ export function addToCart (productId) {
         }
     })
     if (mathingItem) {
-        mathingItem.quantity += 1
+        mathingItem.quantity += amount
     }
     else {
         cart.push({
             productId,
-            quantity: 1,
+            quantity: amount,
             deliveryOptionId: '1'
         })
     }
