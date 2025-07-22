@@ -52,7 +52,7 @@ function renderProductsGrid () {
             
                 <div class="product-spacer"></div>
             
-                <div class="added-to-cart">
+                <div class="added-to-cart js-added-to-cart-button-${product.id}">
                     <img src="images/icons/checkmark.png"/>
                     Added
                 </div>
@@ -67,6 +67,9 @@ function renderProductsGrid () {
     // load productsListHTML in amazon page
     document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
+    // object to save timeout ids
+    const timeoutIds = {}
+
     // update cart quantity
     function updateCartQuantity() {
         let cartQuantity = 0
@@ -79,10 +82,25 @@ function renderProductsGrid () {
     // add to Cart event listener
     document.querySelectorAll('.add-to-cart-button').forEach(button => {
         button.addEventListener('click', () => {
-            const productId = button.dataset.productId
+            const {productId} = button.dataset
             const quantity = Number(document.querySelector(`.js-quantity-selector-${productId}`).value)
             addToCart(productId, quantity)
             updateCartQuantity()
+            showAddedToCartMessage(productId)
         })
     })
+
+    function showAddedToCartMessage(productId) {
+        console.log(timeoutIds)
+        const addedToCartButton = document.querySelector(`.js-added-to-cart-button-${productId}`)
+        addedToCartButton.classList.add('visible')
+        if (timeoutIds[productId]) {
+            clearTimeout(timeoutIds[productId])
+            delete timeoutIds[productId]
+        }
+        timeoutIds[productId] = setTimeout(() => {
+            addedToCartButton.classList.remove('visible')
+            delete timeoutIds[productId]
+        }, 2000)
+    }
 }
