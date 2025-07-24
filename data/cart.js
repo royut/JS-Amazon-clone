@@ -66,6 +66,17 @@ export function updateDeliveryOption (productId, newDeliveryOptionId) {
     saveToLocalStorage()
 }
 
+// update product quantity in cart
+export function updateProductQuantity (productId, newQuantity) {
+    loadFromStorage()
+    cart.forEach(cartItem => {
+        if (cartItem.productId === productId){
+            cartItem.quantity = newQuantity
+        }
+    })
+    saveToLocalStorage()
+}
+
 
 export function loadCart (fun) {
     const xhr = new XMLHttpRequest()

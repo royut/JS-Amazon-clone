@@ -1,5 +1,5 @@
 // import variables and functions
-import {cart, removeFromCart, updateDeliveryOption, calculateCartQuantity} from '../../data/cart.js'
+import {cart, removeFromCart, updateDeliveryOption, calculateCartQuantity, updateProductQuantity} from '../../data/cart.js'
 import {getProduct} from '../../data/products.js'
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'
 import {formatCurrency} from '../utils/money.js'
@@ -35,6 +35,11 @@ export function renderOrderSummary () {
                             <span class="update-quantity-link link-primary js-update-link js-update-link-${cartItem.productId}"
                              data-product-id="${cartItem.productId}">
                                 Update
+                            </span>
+                            <input class="quantity-input js-quantity-input-${cartItem.productId}">
+                            <span class="save-quantity-link link-primary js-save-link js-save-link-${cartItem.productId}"
+                             data-product-id="${cartItem.productId}">
+                                Save
                             </span>
                             <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${cartItem.productId}"
                              data-product-id="${cartItem.productId}">
@@ -97,7 +102,24 @@ export function renderOrderSummary () {
     document.querySelectorAll('.js-update-link').forEach(link => {
         link.addEventListener('click', () => {
             const {productId} = link.dataset
-            console.log(productId)
+            document.querySelector(`.js-product-quantity-${productId}`).classList.add('is-editing-quantity')
+        })
+    })
+
+    // save quantity event listener
+    document.querySelectorAll('.js-save-link').forEach(link => {
+        link.addEventListener('click', () => {
+            const {productId} = link.dataset
+            const quantity = Number(document.querySelector(`.js-quantity-input-${productId}`).value)
+            if (!isNaN(quantity) && 0 < quantity < 1000 ) {
+                updateProductQuantity(productId, quantity)
+                // document.querySelector(`.js-product-quantity-${productId}`).classList.remove('is-editing-quantity')
+                renderOrderSummary()
+                renderPaymentSummary()
+            }
+            else {
+                alert('Please enter a valid quantity')
+            }
         })
     })
 
