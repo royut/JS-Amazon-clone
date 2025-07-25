@@ -4,6 +4,7 @@ import {getProduct} from '../../data/products.js'
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'
 import {formatCurrency} from '../utils/money.js'
 import {renderPaymentSummary} from './paymentSummary.js'
+import {renderCheckoutHeader} from "./checkoutHeader.js";
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
 
 
@@ -85,14 +86,13 @@ export function renderOrderSummary () {
 
     // load cartHTML in checkout page
     document.querySelector('.order-summary').innerHTML = cartSummaryHTML;
-    // update cart quantity in the header
-    document.querySelector('.js-return-to-home-link').innerText = `${calculateCartQuantity()} items`
 
     // delete item event listener
     document.querySelectorAll('.js-delete-link').forEach(link => {
         link.addEventListener('click', () => {
             const {productId} = link.dataset
             removeFromCart(productId)
+            renderCheckoutHeader()
             renderOrderSummary()
             renderPaymentSummary()
         })
@@ -127,6 +127,7 @@ export function renderOrderSummary () {
         if (!isNaN(quantity) && 0 < quantity && quantity <= 1000) {
             updateProductQuantity(productId, quantity)
             // document.querySelector(`.js-product-quantity-${productId}`).classList.remove('is-editing-quantity')
+            renderCheckoutHeader()
             renderOrderSummary()
             renderPaymentSummary()
         }
@@ -140,6 +141,7 @@ export function renderOrderSummary () {
         element.addEventListener('click', () => {
             const {productId, deliveryOptionId} = element.dataset
             updateDeliveryOption(productId, deliveryOptionId)
+            renderCheckoutHeader()
             renderOrderSummary()
             renderPaymentSummary()
         })
