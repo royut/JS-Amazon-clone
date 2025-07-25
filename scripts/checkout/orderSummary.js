@@ -28,7 +28,7 @@ export function renderOrderSummary () {
                         <div class="product-price">
                             ${product.getPrice()}
                         </div>
-                        <div class="product-quantity js-product-quantity-${cartItem.productId}">
+                        <div class="product-quantity js-product-quantity js-product-quantity-${cartItem.productId}">
                             <span>
                                 Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                             </span>
@@ -101,27 +101,39 @@ export function renderOrderSummary () {
     // update item event listener
     document.querySelectorAll('.js-update-link').forEach(link => {
         link.addEventListener('click', () => {
+            document.querySelectorAll('.js-product-quantity').forEach(element => {
+                element.classList.remove('is-editing-quantity')
+            })
             const {productId} = link.dataset
             document.querySelector(`.js-product-quantity-${productId}`).classList.add('is-editing-quantity')
+            document.querySelector(`.js-quantity-input-${productId}`).value = cart.find(cartItem => cartItem.productId === productId).quantity
         })
     })
 
     // save quantity event listener
     document.querySelectorAll('.js-save-link').forEach(link => {
-        link.addEventListener('click', () => {
-            const {productId} = link.dataset
-            const quantity = Number(document.querySelector(`.js-quantity-input-${productId}`).value)
-            if (!isNaN(quantity) && 0 < quantity < 1000 ) {
-                updateProductQuantity(productId, quantity)
-                // document.querySelector(`.js-product-quantity-${productId}`).classList.remove('is-editing-quantity')
-                renderOrderSummary()
-                renderPaymentSummary()
-            }
-            else {
-                alert('Please enter a valid quantity')
+        const {productId} = link.dataset
+        link.addEventListener('click', () => {handleUpdateQuantity(link)})
+        const quantityInput = document.querySelector(`.js-quantity-input-${productId}`)
+        quantityInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                handleUpdateQuantity(link)
             }
         })
     })
+    function handleUpdateQuantity(link) {
+        const {productId} = link.dataset
+        const quantity = Number(document.querySelector(`.js-quantity-input-${productId}`).value)
+        if (!isNaN(quantity) && 0 < quantity && quantity <= 1000) {
+            updateProductQuantity(productId, quantity)
+            // document.querySelector(`.js-product-quantity-${productId}`).classList.remove('is-editing-quantity')
+            renderOrderSummary()
+            renderPaymentSummary()
+        }
+        else {
+            alert('Please enter a valid quantity')
+        }
+    }
 
     // update delivery option event listener
     document.querySelectorAll('.delivery-option').forEach(element => {
