@@ -1,7 +1,7 @@
 // import variables and functions
 import {cart, removeFromCart, updateDeliveryOption, calculateCartQuantity, updateProductQuantity} from '../../data/cart.js'
 import {getProduct} from '../../data/products.js'
-import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'
+import {deliveryOptions, getDeliveryOption, calculateDeliveryDateString} from '../../data/deliveryOptions.js'
 import {formatCurrency} from '../utils/money.js'
 import {renderPaymentSummary} from './paymentSummary.js'
 import {renderCheckoutHeader} from "./checkoutHeader.js";
@@ -63,8 +63,6 @@ export function renderOrderSummary () {
         let html = ``
         const today = dayjs()
         deliveryOptions.forEach(deliveryOption => {
-            const deliveryDate = today.add(deliveryOption.deliveryDays, 'days')
-            const dateString = deliveryDate.format('dddd, MMMM D')
             const priceString = deliveryOption.priceCents === 0 ? 'FREE' : `$${formatCurrency(deliveryOption.priceCents)}`
             const isChecked = deliveryOption.id === cartItem.deliveryOptionId ? 'checked' : ''
             html += `
@@ -72,7 +70,7 @@ export function renderOrderSummary () {
                     <input type="radio" class="delivery-option-input" name="delivery-option-${cartItem.productId}" ${isChecked}>
                     <div>
                         <div class="delivery-option-date">
-                            ${dateString}
+                            ${calculateDeliveryDateString(deliveryOption.id)}
                         </div>
                         <div class="delivery-option-price">
                             ${priceString} - Shipping
