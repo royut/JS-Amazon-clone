@@ -23,14 +23,14 @@ describe('test suite: renderOrderSummary', () => {
         spyOn(localStorage, 'getItem').and.callFake(() => {
             return JSON.stringify([
                 {
-                    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-                    quantity: 1,
+                    productId: productId1,
+                    quantity: 2,
                     deliveryOptionId: '1'
                 },
                 {
-                    productId: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-                    quantity: 2,
-                    deliveryOptionId: '1'
+                    productId: productId2,
+                    quantity: 1,
+                    deliveryOptionId: '2'
                 }
             ])
         })
@@ -51,10 +51,10 @@ describe('test suite: renderOrderSummary', () => {
         ).toEqual(2)
         expect(
             document.querySelector(`.js-product-quantity-${productId1}`).innerText
-        ).toContain('Quantity: 1')
+        ).toContain('Quantity: 2')
         expect(
             document.querySelector(`.js-product-quantity-${productId2}`).innerText
-        ).toContain('Quantity: 2')
+        ).toContain('Quantity: 1')
         expect(
             document.querySelector(`.js-cart-item-container-${productId1} > .cart-item-details-grid > .cart-item-details > .product-name`).innerText
         ).toEqual(getProduct(productId1).name)
@@ -84,5 +84,23 @@ describe('test suite: renderOrderSummary', () => {
         ).not.toEqual(null)
         expect(cart.length).toEqual(1)
         expect(cart[0].productId).toEqual(productId2)
+    })
+    // test changing delivery option
+    it('changes delivery option', () => {
+        // change delivery option
+        document.querySelector(`[data-product-id=${productId1}][data-delivery-option-id="3"]`).click()
+        // tests-simple
+        expect(
+            document.querySelector(`.delivery-option-input[data-delivery-option-id="3"]`).checked
+        ).toEqual(true)
+        expect(cart.length).toEqual(2)
+        expect(cart[0].deliveryOptionId).toEqual('3')
+        console.log(cart)
+        expect(
+            document.querySelector(`.shipping-price`).innerText
+        ).toContain('$14.98')
+        expect(
+            document.querySelector(`.total-price`).innerText
+        ).toContain('$63.50')
     })
 })

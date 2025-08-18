@@ -1,6 +1,6 @@
 import {addToCart, removeFromCart, cart, loadFromStorage} from '../../data/cart.js';
 
-describe('test suite: addToCart', () => {
+describe('test suite: cartTest', () => {
     beforeEach(() => {
         spyOn(localStorage, 'setItem')
     })
