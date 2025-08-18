@@ -58,12 +58,16 @@ export function removeFromCart (productId) {
 // update delivery option
 export function updateDeliveryOption (productId, newDeliveryOptionId) {
     loadFromStorage()
+    let mathingItem = null
     cart.forEach(cartItem => {
         if (cartItem.productId === productId) {
-            cartItem.deliveryOptionId = newDeliveryOptionId
+            mathingItem = cartItem
         }
     })
-    saveToLocalStorage()
+    if (mathingItem) {
+        mathingItem.deliveryOptionId = newDeliveryOptionId
+        saveToLocalStorage()
+    }
 }
 
 // update product quantity in cart
